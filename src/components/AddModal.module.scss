@@ -1,0 +1,26 @@
+@import '../variables.scss';
+
+.addModal {
+
+	.modalContent {
+		border-radius: $border-radius !important;
+	}
+
+	.modalHeader {
+		background-color: $darker-grey;
+		color: $white;
+		border-bottom: 2px solid $black;
+
+		
+	}
+	.modalBody {
+		background-color: $darker-grey;
+		color: $white;
+	}
+
+
+}
+.modalBtn {
+	margin-bottom:40px;
+
+}

@@ -1,0 +1,165 @@
+@import '../variables.scss';
+
+:global {
+
+	.assignedTo {
+		text-transform: capitalize;
+	}
+	
+}
+
+.buglist {
+	background: $dark-grey;
+	border-radius: $border-radius;
+
+	th {
+		font-weight: normal;
+		color: $white;
+		padding:20px !important;
+		border-color: $darker-grey;
+	}
+
+	td{
+		color: $white;
+		padding:20px !important;
+		border-color: $darker-grey;
+	}
+
+	.bugTitle {
+		// cursor: pointer;
+
+		// &:hover {
+		// 	text-decoration: underline;
+		// }
+	}
+
+}
+
+.bugListFilters {
+	margin-bottom:10px;
+	display:flex;
+	justify-content: space-between;
+
+	:global {
+		p {
+			display: inline-block;
+			text-transform: uppercase;
+			font-size:14px;
+		}
+		button.btn {
+			text-transform: uppercase;
+			font-weight: 500;
+			padding: 0.35em 0.65em;
+			font-size: .75em;
+			background-color: transparent ;
+			color:white;
+			border-color:transparent;
+			&:hover {
+				// background-color:unset !important;
+			}
+
+			// &.btn-primary:hover, &.btn-primary.active {
+			// 	background-color: #7289da !important;
+			// }
+			// &.btn-secondary:hover, &.btn-secondary.active {
+			// 	background-color: #6c757d !important;
+			// }
+			// &.btn-warning:hover, &.btn-warning.active {
+			// 	background-color: #ffc107 !important;
+			// }
+			// &.btn-success:hover, &.btn-success.active {
+			// 	background-color: #198754 !important;
+			// }
+
+		} 
+
+		.resetFilter {
+			color: $red !important;
+
+			&.btn.btn-primary:hover {
+				background-color: $dark-grey !important;
+			}
+		}
+	}
+
+	.filterStatus {
+		:global {
+			button.btn {
+				&.btn-primary:hover, &.btn-primary.active {
+					background-color: #7289da !important;
+				}
+				&.btn-secondary:hover, &.btn-secondary.active {
+					background-color: #6c757d !important;
+				}
+				&.btn-warning:hover, &.btn-warning.active {
+					background-color: #ffc107 !important;
+				}
+				&.btn-success:hover, &.btn-success.active {
+					background-color: #198754 !important;
+				}
+
+			} 
+
+		}
+	}
+
+	.filterPriority {
+		:global {
+			.priorityLow:hover, .priorityLow.active {
+				color: $green;
+			}
+			.priorityMedium:hover, .priorityMedium.active {
+				color: $accent;
+			}
+			.priorityHigh:hover, .priorityHigh.active {
+				color: $red;
+			}
+		}
+	}
+	
+}
+
+.priority {
+	&:global(.Low) {
+		color: $green;
+	}
+	&:global(.Medium) {
+		color:$accent;
+	}
+	&:global(.High) {
+		color:$red;
+	}
+
+	// font-weight: bold;
+}
+
+.badge {
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.Modal {
+
+	.modalContent {
+		border-radius: $border-radius !important;
+	}
+
+	.modalHeader {
+		background-color: $darker-grey;
+		color: $white;
+		border-bottom: 2px solid $black;
+
+		
+	}
+	.modalBody {
+		background-color: $darker-grey;
+		color: $white;
+	}
+
+	.modalFooter {
+		border-top: 2px solid $black;
+		background-color: $darker-grey;
+	}
+
+
+}
