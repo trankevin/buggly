@@ -16,6 +16,6 @@ A bug tracking project for me to start learning React!
 
 ## Demo
 
-https://trankevin.com/buggly/
+<a href="https://trankevin.com/buggly/" target="_blank">https://trankevin.com/buggly/</a>
 
-Note: Online demo is not connected to the database, so changes made will not persist after page reload
+_Note: Online demo is not connected to the database, so changes made will not persist after page reload_
