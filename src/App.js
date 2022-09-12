@@ -10,7 +10,7 @@ import './App.scss';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import BugList from './components/BugList.js';
-import AddForm from './components/AddForm.js';
+//import AddForm from './components/AddForm.js';
 import AddModal from './components/AddModal.js';
 import Summary from './components/Summary.js';
 
@@ -34,6 +34,7 @@ class App extends Component {
    * Initial fetch bugs from Firestore
    */
   async componentDidMount() {
+    
     if(this.state.bugList.length !== 0) return;
 
     let bugList = [];
@@ -54,6 +55,7 @@ class App extends Component {
    * @param  {formData}  Values from Add Bug form
    */
   async handleAddFormSubmit(formData) {
+
     let nextBug =  {
       ...formData
     }
@@ -75,6 +77,7 @@ class App extends Component {
     catch(e) {
        console.log('Error: ', e);
     }
+
   }
 
   /**
@@ -82,31 +85,25 @@ class App extends Component {
    * @param  {formData}  Values from Add Bug form
    */
   async handleUpdateFormSubmit(bugId, formData) {
-    //console.log(formData);
+
     try {
-      const docRef = await updateDoc(doc(db, "bugs", bugId), formData).then(() => {
+      await updateDoc(doc(db, "bugs", bugId), formData).then(() => {
         this.setState({
           bugList: [
            ...this.state.bugList.map(bug => {
             if (bug.id == bugId) {
               return {id: bugId, ...formData};
             }
-
             return bug;
            }),
           ]
         });
       });
-      
-
-      //if (docRef.id !== undefined) {
-
-       
-      //}
     }
     catch(e) {
        console.log('Error: ', e);
     }
+
   }
 
   /**
@@ -114,14 +111,15 @@ class App extends Component {
    * @param  {bugId}  Bug ID to delete
    */
   async handleDelete(bugId) {
-
+    console.log(bugId);
     try {
-      await deleteDoc(doc(db, "bugs", bugId));
-
-      this.setState({
-        bugList: [
-          ...this.state.bugList.filter((bug) => bug.id !== bugId)
-        ]
+      await deleteDoc(doc(db, "bugs", bugId)).then(() => {
+        this.setState({
+          bugList: [
+            ...this.state.bugList.filter((bug) => bug.id !== bugId)
+          ]
+        });
+        console.log('deleted');
       });
     }
     catch(e) {

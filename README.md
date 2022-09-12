@@ -1,4 +1,4 @@
-# Buggly
+# Buggly - Bug Tracker
 
 A bug tracking project for me to start learning React!
 
@@ -8,14 +8,14 @@ A bug tracking project for me to start learning React!
 - React
 - Javascript
 - HTML
-- SCSS
-- CSS Modules
+- React Bootstrap
+- CSS Modules (SCSS)
 
 ### Back-End
 - Firebase/Firestore for the database (Local only)
 
 ## Demo
 
-URL HERE
+https://trankevin.com/buggly/
 
-Note: Online demo is not connected to the database, so bugs added will not persist
+Note: Online demo is not connected to the database, so changes made will not persist after page reload

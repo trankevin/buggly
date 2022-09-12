@@ -73,7 +73,8 @@ const BugList = (props) => {
 	}
 	const handleDelete = () => {
 		 // console.log(deleteBugId);
-		props.handleDelete(setDeleteBugId);
+		props.handleDelete(deleteBugId);
+		setShowDelete(false);
 	}
 
 	// Bug List Filters
