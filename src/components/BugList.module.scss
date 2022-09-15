@@ -32,7 +32,33 @@
 		// 	text-decoration: underline;
 		// }
 	}
+	
+}
 
+@media (max-width:768px) {
+	.buglist {
+
+		th {
+			// padding:15px !important;
+
+			.dateAdded {
+				width:15%;
+			}
+		}
+		
+		td {
+			font-size:14px;
+			// padding:15px !important;
+
+			button{
+				margin-bottom:5px;
+				width:100%;
+			}
+
+			
+		}
+	}
+	
 }
 
 .bugListFilters {
@@ -136,6 +162,7 @@
 .badge {
 	text-transform: uppercase;
 	font-weight: 500;
+	
 }
 
 .Modal {

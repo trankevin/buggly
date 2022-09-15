@@ -166,12 +166,12 @@ const BugList = (props) => {
 					</div>
 			</div>	
 			{/* Bug List */}
-			<Table className={style.buglist}>
+			<Table className={style.buglist} responsive>
 				<thead>
 				  <tr>
 				    <th width="10%">Priority</th>
 				    <th width="40%">Bug</th>
-				    <th width="12%">Date Added</th>
+				    <th width="12%" className={style.dateAdded}>Date Added</th>
 				    <th width="12%">Assigned To</th>
 				    <th width="12%">Status</th>	
 				    <th width="16%">Edit</th>

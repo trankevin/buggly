@@ -7,7 +7,7 @@ import style from './Summary.module.scss';
 const Summary = ({ bugList }) => {
 
 	return(
-		<Row xs={2} md={3} lg={5} className={style.summaryRow}>
+		<Row  xs={2} sm={2} md={3} lg={5} className={style.summaryRow}>
 			<Col>
 				<CardGroup>
 				  <Card>

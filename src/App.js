@@ -132,10 +132,10 @@ class App extends Component {
   render() {
     return (
         <ThemeProvider
-          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+          breakpoints={['lg', 'md', 'sm', 'xs']}
         >
           <Navbar>
-            <Container>
+            <Container fluid="lg">
               <Navbar.Brand href=""><img
               alt=""
               src={logo}
@@ -148,20 +148,20 @@ class App extends Component {
           </Navbar>
 
           <div className="col-sm-12">
-            <Container>
+            <Container fluid="lg">
               <Summary bugList={this.state.bugList}/>
             </Container>
           </div>
 
           <div className="col-sm-12">
-            <Container>
+            <Container fluid="lg">
                <AddModal submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>
              {/* <AddForm submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>*/}
             </Container>
           </div>
 
           <div className="col-sm-12">
-            <Container>
+            <Container fluid="lg">
               <BugList bugList={this.state.bugList} handleDelete={(bugId) => this.handleDelete(bugId)} handleUpdate={(bugId, formData) => this.handleUpdateFormSubmit(bugId, formData)}/>
             </Container>
           </div>
