@@ -5,9 +5,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Badge from 'react-bootstrap/Badge';
 import { Timestamp } from 'firebase/firestore';
 import Modal from 'react-bootstrap/Modal';
-import UpdateForm from './UpdateForm.js';
+import UpdateForm from 'components/Forms/UpdateForm.js';
 import style from './BugList.module.scss';
 import {useState, useEffect} from 'react';
+import SearchBar from 'components/SearchBar/SearchBar';
 
 
 const BugList = (props) => {
@@ -106,10 +107,26 @@ const BugList = (props) => {
 
 	}
 
+	// Search Bar
+	const [searchValue, setSearchValue] = useState('');
+	const onChangeSearchValue = (value) => {
+		console.log(value);
+		if(value) {
+			setSearchValue(value);
+		}
+		else {
+			setSearchValue('');
+		}
+	}
+
 	const filterBugs = () => {
-		
+
+		let bugList = props.bugList;
+
 		if(filterPriorityActive || filterStatusActive){
-			setBugs(props.bugList.filter((bug) => {
+
+			bugList = bugList.filter((bug) => {
+
 				if(filterPriorityActive && filterStatusActive){
 					if(bug.priority == filterPriorityActive && bug.status == filterStatusActive) return true;
 					return false;
@@ -119,12 +136,15 @@ const BugList = (props) => {
 					if(filterStatusActive && bug.status !== filterStatusActive) return false;
 					return true;
 				}
-				
-			}));
+
+			});
 		}
-		else {
-			setBugs(props.bugList);
+
+		if(searchValue) {
+			bugList = bugList.filter((bug) => bug.bugTitle.toLowerCase().indexOf(searchValue) >= 0);
 		}
+		
+		setBugs(bugList);
 		
 	}
 
@@ -133,17 +153,21 @@ const BugList = (props) => {
 		setBugs(props.bugList);
 		setFilterPriorityActive(false);
 		setFilterStatusActive(false);
+		setSearchValue('');
 
 	}
 
 	// Use Effect
 	useEffect(() => {
-		//setBugs(props.bugList);
 		filterBugs();
-	}, [props.bugList, filterPriorityActive, filterStatusActive]);
+	}, [props.bugList, filterPriorityActive, filterStatusActive, searchValue]);
 
 	return (
-		<>
+		<>	
+			{/* Search Bar */}
+			<SearchBar searchValue={searchValue} onChangeSearch={onChangeSearchValue} />
+
+			{/* List Filters */}
 			<div className={style.bugListFilters}>
 					{/*<p>Status:</p>*/}
 					{/*<Button size="sm" variant="primary" onClick={() => filterStatus(false)}>All</Button>*/}
@@ -155,7 +179,7 @@ const BugList = (props) => {
 
 					<div>
 						{
-							filterPriorityActive || filterStatusActive ? <Button className="resetFilter" size="sm"s onClick={() =>resetFilters()}>Reset Filters</Button> : ''
+							filterPriorityActive || filterStatusActive || searchValue ? <Button className="resetFilter" size="sm"s onClick={() =>resetFilters()}>Reset Filters</Button> : ''
 						}
 					</div>
 				    <div className={style.filterStatus}>  	

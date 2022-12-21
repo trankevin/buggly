@@ -9,10 +9,10 @@ import './App.scss';
 // Components
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import BugList from './components/BugList.js';
+import BugList from 'components/Buglist/BugList';
 //import AddForm from './components/AddForm.js';
-import AddModal from './components/AddModal.js';
-import Summary from './components/Summary.js';
+import AddModal from './components/AddModal/AddModal.js';
+import Summary from 'components/Summary/Summary';
 
 // Firestore
 import { collection, query, orderBy, doc, getDocs, addDoc, deleteDoc, updateDoc } from "firebase/firestore"; 
@@ -38,15 +38,22 @@ class App extends Component {
     if(this.state.bugList.length !== 0) return;
 
     let bugList = [];
-    const querySnapshot = await getDocs(query(collection(db, "bugs"), orderBy("dateAdded", "desc")));
+
+    try {
+      const querySnapshot = await getDocs(query(collection(db, "bugs"), orderBy("dateAdded", "desc")));
    
-    querySnapshot.forEach((doc) => {
-      bugList.push({id:doc.id, ...doc.data()});
-    });
-    
-    this.setState({
-      bugList: bugList
-    })
+      querySnapshot.forEach((doc) => {
+        bugList.push({id:doc.id, ...doc.data()});
+      });
+      
+      this.setState({
+        bugList: bugList
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+
     
   }
 
@@ -74,8 +81,8 @@ class App extends Component {
        });
       }
     }
-    catch(e) {
-       console.log('Error: ', e);
+    catch(error) {
+       console.log('Error: ', error);
     }
 
   }
@@ -132,10 +139,10 @@ class App extends Component {
   render() {
     return (
         <ThemeProvider
-          breakpoints={['lg', 'md', 'sm', 'xs']}
+          breakpoints={['xl','lg', 'md', 'sm', 'xs']}
         >
           <Navbar>
-            <Container fluid="lg">
+            <Container fluid="xl">
               <Navbar.Brand href=""><img
               alt=""
               src={logo}
@@ -148,20 +155,19 @@ class App extends Component {
           </Navbar>
 
           <div className="col-sm-12">
-            <Container fluid="lg">
+            <Container fluid="xl">
               <Summary bugList={this.state.bugList}/>
             </Container>
           </div>
 
           <div className="col-sm-12">
-            <Container fluid="lg">
+            <Container fluid="xl">
                <AddModal submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>
-             {/* <AddForm submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>*/}
             </Container>
           </div>
 
           <div className="col-sm-12">
-            <Container fluid="lg">
+            <Container fluid="xl">
               <BugList bugList={this.state.bugList} handleDelete={(bugId) => this.handleDelete(bugId)} handleUpdate={(bugId, formData) => this.handleUpdateFormSubmit(bugId, formData)}/>
             </Container>
           </div>

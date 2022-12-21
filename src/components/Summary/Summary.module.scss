@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../../variables.scss';
 
 .summaryRow {
 
@@ -27,5 +27,13 @@
 
 	.cardDone {
 		color: $green;
+	}
+}
+
+@media (max-width:768px) {
+	:global {
+		.card-title {
+			font-size:35px !important;
+		}
 	}
 }

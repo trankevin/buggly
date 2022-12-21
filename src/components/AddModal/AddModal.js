@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AddForm from './AddForm.js';
+import AddForm from '../Forms/AddForm.js';
 import style from './AddModal.module.scss';
 
 

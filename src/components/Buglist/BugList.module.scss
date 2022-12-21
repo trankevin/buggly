@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../../variables.scss';
 
 :global {
 
@@ -23,7 +23,10 @@
 		color: $white;
 		padding:20px !important;
 		border-color: $darker-grey;
+		//background-color: $black;
+		//border-bottom-width:2px;
 	}
+
 
 	.bugTitle {
 		// cursor: pointer;
@@ -35,31 +38,6 @@
 	
 }
 
-@media (max-width:768px) {
-	.buglist {
-
-		th {
-			// padding:15px !important;
-
-			.dateAdded {
-				width:15%;
-			}
-		}
-		
-		td {
-			font-size:14px;
-			// padding:15px !important;
-
-			button{
-				margin-bottom:5px;
-				width:100%;
-			}
-
-			
-		}
-	}
-	
-}
 
 .bugListFilters {
 	margin-bottom:10px;
@@ -127,6 +105,8 @@
 			} 
 
 		}
+
+		text-align: right;
 	}
 
 	.filterPriority {
@@ -181,6 +161,8 @@
 	.modalBody {
 		background-color: $darker-grey;
 		color: $white;
+		border-bottom-right-radius: 4px;
+		border-bottom-left-radius: 4px;
 	}
 
 	.modalFooter {
@@ -189,4 +171,51 @@
 	}
 
 
+}
+
+@media (max-width:768px) {
+	.buglist {
+
+		th {
+			// padding:15px !important;
+
+			.dateAdded {
+				width:15%;
+			}
+		}
+		
+		td {
+			font-size:14px;
+			// padding:15px !important;
+
+			button{
+				margin-bottom:5px;
+				width:100%;
+			}
+
+			
+		}
+	}
+
+	.bugListFilters {
+
+		:global {
+			button.btn {
+				font-size:11px;
+			}
+		}
+	}
+	
+}
+
+@media (max-width:1100px) {
+	.buglist {
+
+			button{
+				margin-bottom:5px;
+				width:100%;
+			}
+
+	}
+	
 }

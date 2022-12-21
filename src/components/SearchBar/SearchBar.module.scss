@@ -1,0 +1,13 @@
+@import '../../variables.scss';
+
+.searchBar {
+    width:100%;
+    margin-bottom:20px;
+    border-color:$dark-grey;
+    padding-top:10px;
+    padding-bottom:10px;
+
+    &::placeholder {
+        color: white;
+    }
+}
