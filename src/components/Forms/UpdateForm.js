@@ -2,6 +2,10 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Timestamp } from 'firebase/firestore';
+import ProjectFormSelect from './ProjectFormSelect';
+import { useDispatch } from 'react-redux';
+import { addBug } from 'state/bugsSlice';
+import FormService from 'services/FormService';
 
 
 class UpdateForm extends React.Component {
@@ -17,7 +21,8 @@ class UpdateForm extends React.Component {
     	description: bug.description || '',
     	assignedTo: bug.assignedTo,
     	priority: bug.priority || 'Medium',
-    	dateAdded: bug.dateAdded
+    	dateAdded: bug.dateAdded,
+		projectID: bug.projectID
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,16 +43,12 @@ class UpdateForm extends React.Component {
 
     // Call parent submitHandler function sent through props
     const {id, ...formData} = this.state;
-    this.props.submitHandler(id, formData);
+    // this.props.submitHandler(id, formData);
+
+	FormService.handleUpdateFormSubmit(id, formData).then(() => {
+		this.props.handleClose();
+	});
     
-    // Reset form state
-    // this.setState({
-    // 	status: 'open',
-    // 	bugTitle: '',
-    // 	description:'',
-    // 	assignedTo: '',
-    // 	priority: '',
-    // });
   }
 
   render() {
@@ -59,11 +60,16 @@ class UpdateForm extends React.Component {
 				<Form.Control type="text" name="bugTitle" value={this.state.bugTitle} onChange={this.handleChange} />
 			</Form.Group>
 
-			<input type="hidden" name="dateAdded" value={this.state.dateAdded} onChange={this.handleChange}/>
+			<input type="hidden" name="dateAdded" value={this.state.dateAdded || Date.now()}/>
 
 			<Form.Group className="mb-3" controlId="addFormBugDescription">
 			  <Form.Label>Description</Form.Label>
 			  <Form.Control as="textarea" rows={3} name="description" onChange={this.handleChange} defaultValue={this.state.description}/>
+			</Form.Group>
+
+			<Form.Group className="mb-3" controlId="addFormProject">
+					<Form.Label>Project</Form.Label>
+				<ProjectFormSelect handleChange={this.handleChange} defaultProject={this.state.projectID}/>
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="addFormBugStatus">

@@ -2,7 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Timestamp } from 'firebase/firestore';
-
+import ProjectFormSelect from './ProjectFormSelect';
+import { useDispatch } from 'react-redux';
+import FormService from 'services/FormService';
 
 class AddForm extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class AddForm extends React.Component {
     	description:'',
     	assignedTo: 'kevin',
     	priority: 'Medium',
+		projectID: ''
 
     };
 
@@ -30,18 +33,25 @@ class AddForm extends React.Component {
   }
 
   handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
 
     // Call parent submitHandler function sent through props
-    this.props.submitHandler({dateAdded: Timestamp.now(), ...this.state});
+    //this.props.submitHandler({dateAdded: Timestamp.now(), ...this.state});
+	const data = {dateAdded: Timestamp.now(), ...this.state};
+	
+	FormService.handleAddFormSubmit(data).then(() => {
+		
+		// Reset form state
+		this.setState({
+			status: 'open',
+			bugTitle: '',
+			assignedTo: 'kevin'
+		});
+
+		this.props.handleClose();
+
+	});
     
-    // Reset form state
-    this.setState({
-    	status: 'open',
-    	bugTitle: '',
-    	assignedTo: 'kevin'
-    });
   }
 
   render() {
@@ -56,6 +66,11 @@ class AddForm extends React.Component {
 			<Form.Group className="mb-3" controlId="addFormBugDescription">
 			  <Form.Label>Description</Form.Label>
 			  <Form.Control as="textarea" rows={3} name="description" onChange={this.handleChange}/>
+			</Form.Group>
+
+			<Form.Group className="mb-3" controlId="addFormProject">
+					<Form.Label>Project</Form.Label>
+				<ProjectFormSelect handleChange={this.handleChange} defaultProject={this.state.projectID} />
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="addFormBugStatus">

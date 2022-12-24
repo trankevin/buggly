@@ -4,18 +4,21 @@
 
 	.modalContent {
 		border-radius: $border-radius !important;
+		
+		
 	}
 
 	.modalHeader {
 		background-color: $darker-grey;
 		color: $white;
 		border-bottom: 2px solid $black;
-
 		
 	}
 	.modalBody {
 		background-color: $darker-grey;
 		color: $white;
+		border-bottom-right-radius: 2px;
+    	border-bottom-left-radius: 2px;
 	}
 
 

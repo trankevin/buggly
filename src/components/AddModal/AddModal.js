@@ -9,7 +9,7 @@ class AddModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    	'show': false
+    	'show': false,
     };
 
     this.handleClose = () => this.setState({'show':false});
@@ -20,6 +20,7 @@ class AddModal extends React.Component {
   	this.props.submitHandler(formData);
   	this.handleClose();
   }
+  
 
   render() {
   	return(
@@ -33,7 +34,7 @@ class AddModal extends React.Component {
 	          <Modal.Title>Add New Bug</Modal.Title>
 	        </Modal.Header>
 	        <Modal.Body className={style.modalBody}>
-	        	 <AddForm submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>
+	        	 <AddForm handleClose={this.handleClose} submitHandler={(formData) => this.handleAddFormSubmit(formData)}/>
 	        </Modal.Body>
 	        {/*<Modal.Footer>
 	          <Button variant="secondary" onClick={this.handleClose}>

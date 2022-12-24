@@ -9,9 +9,15 @@ import UpdateForm from 'components/Forms/UpdateForm.js';
 import style from './BugList.module.scss';
 import {useState, useEffect} from 'react';
 import SearchBar from 'components/SearchBar/SearchBar';
+import { useSelector, useDispatch } from 'react-redux';
+import FormService from 'services/FormService';
 
 
 const BugList = (props) => {
+
+	const bugs = useSelector(state => state.bugs);
+
+  	const dispatch = useDispatch();
 	
 	const displayStatus = (status, type) => {
 		let statuses = {
@@ -24,42 +30,18 @@ const BugList = (props) => {
 		return statuses[status][type];
 	}
 
-	// Build rows of bugs
-	// const [bugList, setBugList] = useState([]);
-	const [bugRows, setBugRows] = useState([]);
-
-	const setBugs = (bugs) => {
-		const createdBugRows = bugs.map((row,i) => {
-			return (
-				<tr key={row.id}>
-				  <td className={`${style.priority} ${row.priority}`}>{row.priority}</td>
-				  <td className={style.bugTitle}>{row.bugTitle}</td>
-				  <td>{row.dateAdded instanceof Timestamp ? row.dateAdded.toDate().toLocaleDateString('en-CA') : ""}</td>
-				  <td className="assignedTo">{row.assignedTo}</td>
-				  <td><Badge className={style.badge} bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge></td>
-				  <td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDeleteShow(row.id)}>Delete</Button></td>
-				  {/*<td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDelete(row.id)}>Delete</Button></td>*/}
-				</tr>
-			)
-		});
-
-		//setBugList(bugs);
-		setBugRows(createdBugRows);
-
-	}
-
 	// Update Modal Form
 	const [show, setShow] = useState(false);
 	const [updateBug, setUpdateBug] = useState();
 
 	const handleClose = () => setShow(false);
 	const handleShow = (bugId) => {
-		setUpdateBug(props.bugList.find(bug => bug.id == bugId));
+		setUpdateBug(bugs.find(bug => bug.id == bugId));
 		setShow(true);
 	}
 
 	const handleUpdateFormSubmit = (bugId, formData) => {
-		props.handleUpdate(bugId, formData);
+		//props.handleUpdate(bugId, formData);
 		handleClose();
 	}
 
@@ -73,8 +55,9 @@ const BugList = (props) => {
 		setShowDelete(true);
 	}
 	const handleDelete = () => {
-		 // console.log(deleteBugId);
-		props.handleDelete(deleteBugId);
+
+		//props.handleDelete(deleteBugId);
+		FormService.handleDelete(deleteBugId);
 		setShowDelete(false);
 	}
 
@@ -110,7 +93,6 @@ const BugList = (props) => {
 	// Search Bar
 	const [searchValue, setSearchValue] = useState('');
 	const onChangeSearchValue = (value) => {
-		console.log(value);
 		if(value) {
 			setSearchValue(value);
 		}
@@ -119,16 +101,29 @@ const BugList = (props) => {
 		}
 	}
 
+	// Apply filters 
 	const filterBugs = () => {
 
-		let bugList = props.bugList;
+		if(!bugs.length) return;
+
+		// let bugList = props.bugList;
+		let bugList = bugs;
+
+		if(Object.keys(props.project).length) {
+			bugList = bugList.filter((bug) => bug.projectID == props.project.id);
+		}
 
 		if(filterPriorityActive || filterStatusActive){
-
+			
 			bugList = bugList.filter((bug) => {
-
+				
 				if(filterPriorityActive && filterStatusActive){
-					if(bug.priority == filterPriorityActive && bug.status == filterStatusActive) return true;
+
+					if(bug.priority == filterPriorityActive && bug.status == filterStatusActive) {
+						console.log(bug);
+						return true;
+
+					}
 					return false;
 				}
 				else{
@@ -138,29 +133,55 @@ const BugList = (props) => {
 				}
 
 			});
+
 		}
 
 		if(searchValue) {
 			bugList = bugList.filter((bug) => bug.bugTitle.toLowerCase().indexOf(searchValue) >= 0);
 		}
-		
+
 		setBugs(bugList);
 		
 	}
 
+	// Build rows of bugs
+	// const [bugList, setBugList] = useState([]);
+	const [bugRows, setBugRows] = useState([]);
+
+	const setBugs = (bugList) => {
+		
+
+		const createdBugRows = bugList.map((row,i) => {
+			return (
+				<tr key={row.id}>
+				  <td className={`${style.priority} ${row.priority}`}>{row.priority}</td>
+				  <td className={style.bugTitle}>{row.bugTitle}</td>
+				  <td className={style.dateAdded}>{row.dateAdded ? Timestamp.fromMillis(row.dateAdded).toDate().toLocaleDateString(undefined, {day:   '2-digit',month: '2-digit',year:  'numeric'}) : ""}</td>
+				  {/* <td className={style.dateAdded}>{row.dateAdded}</td> */}
+				  <td className="assignedTo">{row.assignedTo}</td>
+				  <td><Badge className={style.badge} bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge></td>
+				  <td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDeleteShow(row.id)}>Delete</Button></td>
+				</tr>
+			)
+		});
+
+		//setBugList(bugs);
+		setBugRows(createdBugRows);
+
+	}
+
 	const resetFilters = () => {
 
-		setBugs(props.bugList);
+		setBugs(bugs);
 		setFilterPriorityActive(false);
 		setFilterStatusActive(false);
 		setSearchValue('');
 
 	}
 
-	// Use Effect
 	useEffect(() => {
 		filterBugs();
-	}, [props.bugList, filterPriorityActive, filterStatusActive, searchValue]);
+	}, [bugs, filterPriorityActive, filterStatusActive, searchValue, props.project ]);
 
 	return (
 		<>	
@@ -169,8 +190,7 @@ const BugList = (props) => {
 
 			{/* List Filters */}
 			<div className={style.bugListFilters}>
-					{/*<p>Status:</p>*/}
-					{/*<Button size="sm" variant="primary" onClick={() => filterStatus(false)}>All</Button>*/}
+
 				    <div className={style.filterPriority}>  	
 				      <Button className={`priorityLow ${(filterPriorityActive == 'Low') ? 'active':''}`} size="sm" onClick={() => filterPriority('Low')}>Low</Button>
 				      <Button className={`priorityMedium ${(filterPriorityActive == 'Medium') ? 'active':''}`} size="sm" onClick={() => filterPriority('Medium')}>Medium</Button>
@@ -179,7 +199,7 @@ const BugList = (props) => {
 
 					<div>
 						{
-							filterPriorityActive || filterStatusActive || searchValue ? <Button className="resetFilter" size="sm"s onClick={() =>resetFilters()}>Reset Filters</Button> : ''
+							filterPriorityActive || filterStatusActive || searchValue ? <Button className="resetFilter" size="sm" onClick={() =>resetFilters()}>Reset Filters</Button> : ''
 						}
 					</div>
 				    <div className={style.filterStatus}>  	
@@ -212,7 +232,7 @@ const BugList = (props) => {
 		          <Modal.Title>Update Bug</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body className={style.modalBody}>
-		        	<UpdateForm submitHandler={(bugId, formData) => handleUpdateFormSubmit(bugId, formData)} updateBug={updateBug}/>
+		        	<UpdateForm handleClose={handleClose} submitHandler={(bugId, formData) => handleUpdateFormSubmit(bugId, formData)} updateBug={updateBug}/>
 		        </Modal.Body>
       		</Modal>
 
