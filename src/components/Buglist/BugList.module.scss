@@ -36,6 +36,34 @@
 		// &:hover {
 		// 	text-decoration: underline;
 		// }
+		// display: flex;
+    	// justify-content: space-between;
+		.titleText {
+			margin-bottom:5px;
+		}
+		.projectBadge {
+			background-color: $grey !important;
+			display:inline-flex;
+			align-items: center;
+			font-weight:normal;
+
+		}
+
+		:global {
+			
+			.badge {
+				font-size:11px;
+			}
+			p {
+				margin-bottom:0px;
+			}
+			svg {
+				margin-right:3px;
+				height:10px;
+			}
+		}
+
+		
 	}
 
 	
@@ -166,13 +194,18 @@
 	.modalBody {
 		background-color: $darker-grey;
 		color: $white;
-		border-bottom-right-radius: 2px;
-		border-bottom-left-radius: 2px;
+		// border-bottom-right-radius: 2px;
+		// border-bottom-left-radius: 2px;
 	}
 
 	.modalFooter {
-		border-top: 2px solid $black;
+		// border-top: 2px solid $black;
+		border-color: $black;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
 		background-color: $darker-grey;
+		border-bottom-right-radius: 2px;
+		border-bottom-left-radius: 2px;
 	}
 
 

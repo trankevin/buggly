@@ -11,13 +11,15 @@ import {useState, useEffect} from 'react';
 import SearchBar from 'components/SearchBar/SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
 import FormService from 'services/FormService';
+import { useParams } from 'react-router-dom';
+import { FaFolder, FaFolderOpen } from 'react-icons/fa';
 
 
 const BugList = (props) => {
 
 	const bugs = useSelector(state => state.bugs);
-
   	const dispatch = useDispatch();
+	const { projectID } = useParams();
 	
 	const displayStatus = (status, type) => {
 		let statuses = {
@@ -60,6 +62,11 @@ const BugList = (props) => {
 		FormService.handleDelete(deleteBugId);
 		setShowDelete(false);
 	}
+
+	// Projects Map
+	const myProjects = useSelector(state => state.myProjects);
+	//const [projectsMap, setProjectsMap] = useState({});
+	
 
 	// Bug List Filters
 	// ------------
@@ -109,8 +116,8 @@ const BugList = (props) => {
 		// let bugList = props.bugList;
 		let bugList = bugs;
 
-		if(Object.keys(props.project).length) {
-			bugList = bugList.filter((bug) => bug.projectID == props.project.id);
+		if( projectID ){
+			bugList = bugList.filter((bug) => bug.projectID == projectID);
 		}
 
 		if(filterPriorityActive || filterStatusActive){
@@ -120,9 +127,7 @@ const BugList = (props) => {
 				if(filterPriorityActive && filterStatusActive){
 
 					if(bug.priority == filterPriorityActive && bug.status == filterStatusActive) {
-						console.log(bug);
 						return true;
-
 					}
 					return false;
 				}
@@ -145,22 +150,32 @@ const BugList = (props) => {
 	}
 
 	// Build rows of bugs
-	// const [bugList, setBugList] = useState([]);
 	const [bugRows, setBugRows] = useState([]);
 
 	const setBugs = (bugList) => {
 		
+		const projectsMap = myProjects.reduce((acc, project) => {
+			return {
+				...acc,
+				[project.id]: project
+			};
+		}, {});
 
 		const createdBugRows = bugList.map((row,i) => {
 			return (
 				<tr key={row.id}>
-				  <td className={`${style.priority} ${row.priority}`}>{row.priority}</td>
-				  <td className={style.bugTitle}>{row.bugTitle}</td>
-				  <td className={style.dateAdded}>{row.dateAdded ? Timestamp.fromMillis(row.dateAdded).toDate().toLocaleDateString(undefined, {day:   '2-digit',month: '2-digit',year:  'numeric'}) : ""}</td>
-				  {/* <td className={style.dateAdded}>{row.dateAdded}</td> */}
-				  <td className="assignedTo">{row.assignedTo}</td>
-				  <td><Badge className={style.badge} bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge></td>
-				  <td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDeleteShow(row.id)}>Delete</Button></td>
+					<td className={`${style.priority} ${row.priority}`}>{row.priority}</td>
+					<td className={style.bugTitle}>
+						<p className={style.titleText}>{row.bugTitle}</p>
+						<p><Badge className={style.projectBadge}><FaFolderOpen/> {projectsMap[row.projectID] ? projectsMap[row.projectID].projectName : ''}</Badge> 
+						{/* <Badge bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge>*/}
+						</p> 
+					</td>
+					<td className={style.dateAdded}>{row.dateAdded ? Timestamp.fromMillis(row.dateAdded).toDate().toLocaleDateString(undefined, {day:   '2-digit',month: '2-digit',year:  'numeric'}) : ""}</td>
+					{/* <td className={style.dateAdded}>{row.dateAdded}</td> */}
+					<td className="assignedTo">{row.assignedTo}</td>
+					<td><Badge className={style.badge} bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge></td>
+					<td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDeleteShow(row.id)}>Delete</Button></td>
 				</tr>
 			)
 		});
@@ -181,12 +196,16 @@ const BugList = (props) => {
 
 	useEffect(() => {
 		filterBugs();
-	}, [bugs, filterPriorityActive, filterStatusActive, searchValue, props.project ]);
+	}, [bugs, filterPriorityActive, filterStatusActive, searchValue, projectID, myProjects, searchValue ]);
+
+	// useEffect(() => {
+		
+	// }, [myProjects]);
 
 	return (
 		<>	
 			{/* Search Bar */}
-			<SearchBar searchValue={searchValue} onChangeSearch={onChangeSearchValue} />
+			<SearchBar searchValue={searchValue} onChangeSearch={onChangeSearchValue} clearSearch={() => setSearchValue('')} />
 
 			{/* List Filters */}
 			<div className={style.bugListFilters}>

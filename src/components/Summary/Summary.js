@@ -4,12 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import style from './Summary.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const Summary = ({ project }) => {
 	let bugs = useSelector(state => state.bugs);
+	const { projectID } = useParams();
 
-	if(Object.keys(project).length) {
-		bugs = bugs.filter((bug) => bug.projectID == project.id);
+	if(projectID) {
+		bugs = bugs.filter((bug) => bug.projectID == projectID);
 	}
 
 	return(

@@ -1,7 +1,7 @@
 import logo from './bug-icon.png';
 import React, { Component, useEffect, useState } from 'react';
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import DatabaseService from 'services/DatabaseService';
 
 // Styles
@@ -30,19 +30,31 @@ import db from './firebase.js';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBugs } from 'state/bugsSlice'
 import { fetchMyProjects } from 'state/myProjectsSlice'
+import ProjectsPage from 'pages/ProjectsPage';
+import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 
 const App = () => {
     
     const dispatch = useDispatch();
+    const myProjects = useSelector(state => state.myProjects);
     const [project, setProject] = useState({});
-
+   
     useEffect(() => {
       // Fetch bugs from Firestore
       dispatch(fetchBugs());
 
       // Fetch user projects
       dispatch(fetchMyProjects());
+      
     }, [])
+
+    // useEffect(() => {
+    //   if(projectID){
+    //     console.log(projectID);
+    //     const project = myProjects.filter(project => project.id == projectID)[0];
+    //     setProject(project);
+    //   }
+    // }, [projectID]);
 
     // Update current project in state
     const onChangeProject = (project) => {
@@ -50,34 +62,51 @@ const App = () => {
     }
 
     return (
-    
+      <BrowserRouter>
+        <ScrollToTop/>
         <ThemeProvider
         breakpoints={['xl','lg', 'md', 'sm', 'xs']}
         >
             <Container fluid>
                 <Row>
-                <Col xs={2}>
-                    <SideNav onChangeProject={(project) => onChangeProject(project)}/>
-                </Col>
-                <Col xs={{offset: 2 }}>
-                    <BrowserRouter>
-                    <main>
-                        <Container>
-                        <PageTitle title={project.projectName || "Dashboard"}/>
-                        <Summary project={project}/>
-                        <AddModal />
-                        <BugList 
-                                // handleDelete={(bugId) => this.handleDelete(bugId)} 
-                                // handleUpdate={(bugId, formData) => this.handleUpdateFormSubmit(bugId, formData)}
-                                project={project}/>
-                        </Container>
-                    </main>
-                    </BrowserRouter>
-                </Col>
+                  <Col xs={12} lg={2} className="col-sidenav">
+                      <SideNav onChangeProject={(project) => onChangeProject(project)}/>
+                  </Col>
+                  <Col xs={12} lg={{span: 10, offset: 2 }}>
+                        <main>
+                            <Container fluid="lg">
+                              <Routes>
+
+                                <Route path="/" element={
+                                  <>
+                                    <PageTitle title="Dashboard"/>
+                                    <Summary/>
+                                    <AddModal />
+                                    <BugList />                                  
+                                  </>
+                                } />
+                              
+                                <Route exact path="/projects" element={<ProjectsPage />} />
+                                <Route path="/project/:projectID" element={
+                                  <>
+                                    <PageTitle />
+                                    <Summary />
+                                    <AddModal />
+                                    <BugList/>                                  
+                                  </>
+                                } />
+
+                                <Route exact path='*' element={<h1>Page Not found!</h1>} />
+                              </Routes>
+                              
+                            </Container>
+                        </main>
+                  </Col>
                 </Row>
                 
             </Container>
         </ThemeProvider>
+      </BrowserRouter>
     
     );
     

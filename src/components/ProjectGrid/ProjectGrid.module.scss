@@ -1,0 +1,45 @@
+@import '../../variables.scss';
+
+.projectGrid {
+
+    :global{
+        .card {
+            background-color: #36393e;
+            color: #7289da;
+            font-weight: bold;
+            text-align: center;
+            height:100%;
+            text-align: left;
+
+            .card-body {
+                display: flex;
+                flex-wrap: wrap;
+                align-content: space-between;
+                padding: 1.5rem 1.5rem;
+
+                .card-title {
+                    font-size:32px;
+                    width:100%;
+                }
+
+                .card-text {
+                    width:100%;
+                    padding-top:40px;
+                    color: $light-grey;
+                    // display:flex;
+                    // justify-content: space-between;
+                    span {
+                        display:block;
+                        width:100%;
+                        color:white;
+                    }
+                }
+            }
+            
+
+            
+        }
+    }
+    
+    // margin-bottom: 20px;
+}

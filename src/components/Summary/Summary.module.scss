@@ -32,8 +32,15 @@
 
 @media (max-width:768px) {
 	:global {
-		.card-title {
-			font-size:35px !important;
+		.card {
+			margin-bottom:10px;
+			.card-title {
+				font-size:35px !important;
+			}
+			.card-body {
+				padding: 0.5rem 0.5rem;
+			}
 		}
+		
 	}
 }

@@ -30,12 +30,7 @@ const handleAddFormSubmit = async (formData) => {
                 ...nextBug,
                 dateAdded: nextBug.dateAdded.toMillis()
        }));
-    //    this.setState({
-    //      bugList: [
-    //       nextBug,
-    //       ...this.state.bugList,
-    //      ]
-    //    });
+   
       }
     }
     catch(error) {
@@ -81,10 +76,42 @@ const handleDelete = async (bugId) => {
     }
 
 }
+
+/**
+ * Handle delete bug 
+ * @param  {formData}  Form data from add project
+ */
+const handleAddProjectForm = async (formData) => {
+
+    let project =  {
+      ...formData
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "projects"), project);
+
+      if (docRef.id !== undefined) {
+       //nextBug.id = docRef.id;
+
+    //    formDispatch(addBug({
+    //             ...nextBug,
+    //             dateAdded: nextBug.dateAdded.toMillis()
+    //    }));
+   
+      }
+    }
+    catch(error) {
+       console.log('Error: ', error);
+    }
+
+}
+
+
 const FormService = {
     handleAddFormSubmit,
     handleUpdateFormSubmit,
-    handleDelete
+    handleDelete,
+    handleAddProjectForm
 }
 
 export default FormService;

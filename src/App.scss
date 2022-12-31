@@ -11,15 +11,18 @@ html, body{
   // background-color: $black;
   color: $white;
 
-  .container-fluid > .row > .col-2 {
-    padding-top:10px;
-    border-right: 2px solid $dark-grey;
-    position:fixed;
-    height:100%;
+  .col-sidenav {
 
     background-color: $dark-grey;
+
+    @media (min-width:992px) {
+      position:fixed;
+      height:100%;
+      padding-top:10px;
+      //border-right: 2px solid $dark-grey;
+    }
   }
-  .container-fluid > .row > .col {
+  .container-fluid > .row > .offset-lg-2 {
     padding-top:40px;
   }
 }
@@ -51,7 +54,7 @@ html, body{
       color: $white;
       background-color: $accent;
       border-color: $accent;
-      // opacity: 0.8;
+      opacity: 0.8;
     }
 }
 
@@ -75,6 +78,10 @@ html, body{
     background-color: $green !important;
 }
 
+.bg-warning {
+  //background-color: $yellow !important;
+}
+
 .form-control,
 .form-control:focus,
 .form-select {
@@ -92,6 +99,10 @@ html, body{
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 16px 12px;
+}
+
+.col-sidenav {
+
 }
 /*.App {
   text-align: center;
