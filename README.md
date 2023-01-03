@@ -1,7 +1,5 @@
 # Buggly - Bug Tracker
 
-A bug tracking project for me to start learning React!
-
 ## Preview
 
 <img alt="Buggly screenshot" src="./src/buggly-screenshot.png" width="500" >
