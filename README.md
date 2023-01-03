@@ -10,6 +10,8 @@ A bug tracking project for me to start learning React!
 
 ### Front-End
 - React
+- React Router
+- Redux
 - Javascript
 - HTML
 - React Bootstrap
