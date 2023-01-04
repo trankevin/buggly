@@ -22,6 +22,9 @@ A bug tracking project built with React
 
 ## Demo
 
+Login
+u: buggly
+p: bugglydemopassword1
+
 <a href="https://trankevin.com/buggly/" target="_blank">https://trankevin.com/buggly/</a>
 
-_Note: Online demo is not connected to the database, so changes made will not persist after page reload_

@@ -54,7 +54,7 @@ export default function SideNav({ onChangeProject }) {
                     id={`offcanvasNavbar-expand-lg`}
                     aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
                     placement="start"
-                    show={showMobileNav}
+                    // show={showMobileNav}
                     onHide={handleClose}
                     >
                     <Offcanvas.Header closeButton>
