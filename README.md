@@ -18,13 +18,13 @@ A bug tracking project built with React
 - CSS Modules (SCSS)
 
 ### Back-End
-- Firebase/Firestore for the database (Local only)
+- Firebase/Firestore for the database
 
 ## Demo
 
-Login
-u: buggly
-p: bugglydemopassword1
+Login <br/>
+u: buggly <br/>
+p: bugglydemopassword1 <br/>
 
 <a href="https://trankevin.com/buggly/" target="_blank">https://trankevin.com/buggly/</a>
 
