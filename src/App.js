@@ -81,7 +81,7 @@ const App = () => {
                                   <>
                                     <PageTitle title="Dashboard"/>
                                     <Summary/>
-                                    <AddModal />
+                                    <AddModal type="bug" title="Add New Bug" />
                                     <BugList />                                  
                                   </>
                                 } />
@@ -91,7 +91,7 @@ const App = () => {
                                   <>
                                     <PageTitle />
                                     <Summary />
-                                    <AddModal />
+                                    <AddModal type="bug" title="Add New Bug" />
                                     <BugList/>                                  
                                   </>
                                 } />

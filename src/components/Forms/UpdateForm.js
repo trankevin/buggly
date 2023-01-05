@@ -95,42 +95,42 @@ class UpdateForm extends React.Component {
 			<Form.Group className="mb-3" controlId="addFormBugPriority">
 				<Form.Label>Priority</Form.Label><br/>
 				<Form.Check
-	        inline
-	        label="Low"
-	        name="priority"
-	        type="radio"
-	        value="Low"
-	        onChange={this.handleChange}
-	        checked={this.state.priority === "Low"}
-	      />
-	      <Form.Check
-	        inline
-	        label="Medium"
-	        name="priority"
-	        type="radio"
-	        value="Medium"
-	        onChange={this.handleChange}
-	        checked={this.state.priority === "Medium"}
-	      />
-	      <Form.Check
-	        inline
-	        label="High"
-	        name="priority"
-	        type="radio"
-	        value="High"
-	        onChange={this.handleChange}
-	        checked={this.state.priority === "High"}
-	      />
-      </Form.Group>
+					inline
+					label="Low"
+					name="priority"
+					type="radio"
+					value="Low"
+					onChange={this.handleChange}
+					checked={this.state.priority === "Low"}
+				/>
+				<Form.Check
+					inline
+					label="Medium"
+					name="priority"
+					type="radio"
+					value="Medium"
+					onChange={this.handleChange}
+					checked={this.state.priority === "Medium"}
+				/>
+				<Form.Check
+					inline
+					label="High"
+					name="priority"
+					type="radio"
+					value="High"
+					onChange={this.handleChange}
+					checked={this.state.priority === "High"}
+				/>
+			</Form.Group>
 
-			<Form.Group className="mb-3" controlId="addFormBugAssignTo">
+			{/* <Form.Group className="mb-3" controlId="addFormBugAssignTo">
 					<Form.Label>Assign To</Form.Label>
 				<Form.Select  aria-label="Assign To" name="assignedTo" defaultValue={this.state.assignTo} onChange={this.handleChange} >
 				    <option value="kevin">Kevin</option>
 				    <option value="john">John</option>
 				    <option value="mike">Mike</option>
 				</Form.Select>
-			</Form.Group>
+			</Form.Group> */}
 
 			<Button variant="primary" type="submit" onClick={this.handleSubmit}>
 				Update Bug

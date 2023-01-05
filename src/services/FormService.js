@@ -2,6 +2,7 @@
 import { collection, query, orderBy, doc, getDocs, addDoc, deleteDoc, updateDoc, where } from "firebase/firestore"; 
 import db from '../firebase.js';
 import { addBug, updateBug, deleteBug } from 'state/bugsSlice'
+import { fetchMyProjects } from "state/myProjectsSlice.js";
 import { useDispatch } from "react-redux";
 import store from '../state/redux-store';
 import { Timestamp } from "firebase/firestore";
@@ -78,7 +79,7 @@ const handleDelete = async (bugId) => {
 }
 
 /**
- * Handle delete bug 
+ * Handle Add Project Form submit
  * @param  {formData}  Form data from add project
  */
 const handleAddProjectForm = async (formData) => {
@@ -93,11 +94,8 @@ const handleAddProjectForm = async (formData) => {
       if (docRef.id !== undefined) {
        //nextBug.id = docRef.id;
 
-    //    formDispatch(addBug({
-    //             ...nextBug,
-    //             dateAdded: nextBug.dateAdded.toMillis()
-    //    }));
-   
+        // Fetch projects
+        formDispatch(fetchMyProjects());        
       }
     }
     catch(error) {

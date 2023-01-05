@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import style  from "./ProjectGrid.module.scss";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProjectGrid = () => {
     const myProjects = useSelector(state => state.myProjects);
@@ -32,11 +33,14 @@ const ProjectGrid = () => {
                     <Col key={project.id}>
                         <Card>
                             <Card.Body>
-                            <Card.Title>{project.projectName}</Card.Title>
-                            <Card.Text>
-                                <span>{countMap[project.id]} Bugs</span>
-                                <span>{project.users.length} {project.users.length == 1 ? 'User' : 'Users'}</span>
-                            </Card.Text>
+                                {/* <a href={`/project/${project.id}`} className="stretched-link"></a> */}
+                                <Link to={`/project/${project.id}`} className="stretched-link"></Link>
+                                <Card.Title>{project.projectName}</Card.Title>
+                                <Card.Text>
+                                    <span>{countMap[project.id]} Bugs</span>
+                                    {/* <span>{project.users.length} {project.users.length == 1 ? 'User' : 'Users'}</span> */}
+                                </Card.Text>
+                                
                             </Card.Body>
                         </Card>                    
                     </Col>

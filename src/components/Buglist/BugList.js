@@ -172,8 +172,7 @@ const BugList = (props) => {
 						</p> 
 					</td>
 					<td className={style.dateAdded}>{row.dateAdded ? Timestamp.fromMillis(row.dateAdded).toDate().toLocaleDateString(undefined, {day:   '2-digit',month: '2-digit',year:  'numeric'}) : ""}</td>
-					{/* <td className={style.dateAdded}>{row.dateAdded}</td> */}
-					<td className="assignedTo">{row.assignedTo}</td>
+					{/* <td className="assignedTo">{row.assignedTo}</td> */}
 					<td><Badge className={style.badge} bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge></td>
 					<td><Button size="sm" variant="primary" onClick={() => handleShow(row.id)}>Edit</Button> <Button size="sm" variant="danger" onClick={() => handleDeleteShow(row.id)}>Delete</Button></td>
 				</tr>
@@ -235,7 +234,7 @@ const BugList = (props) => {
 				    <th width="10%">Priority</th>
 				    <th width="40%">Bug</th>
 				    <th width="12%" className={style.dateAdded}>Date Added</th>
-				    <th width="12%">Assigned To</th>
+				    {/* <th width="12%">Assigned To</th> */}
 				    <th width="12%">Status</th>	
 				    <th width="16%">Edit</th>
 				  </tr>

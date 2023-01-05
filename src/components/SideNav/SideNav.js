@@ -15,7 +15,6 @@ import { Badge } from 'react-bootstrap';
 
 export default function SideNav({ onChangeProject }) {
     
-    //const [myProjects, setMyProjects] = useState([]);
     const myProjects = useSelector(state => state.myProjects);
     const [currentProject, setCurrentProject] = useState({});
     const { pathname } = useLocation();
@@ -70,7 +69,7 @@ export default function SideNav({ onChangeProject }) {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                    <Nav defaultActiveKey={pathname} className={` flex-column`} align-items-end="true">
+                    <Nav activeKey={pathname} className={` flex-column`} align-items-end="true">
                         <Nav.Link eventKey="/" as={Link} to="/" onClick={handleClose}><FaHome/> Dashboard</Nav.Link>
                         {/* <Link to="/projects" className="nav-link">Projects</Link> */}
                         <Nav.Link eventKey="/projects" as={Link} to="/projects" onClick={handleClose}><FaFolderOpen/> Projects</Nav.Link>

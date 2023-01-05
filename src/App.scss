@@ -6,9 +6,8 @@ html, body{
 }
 
 #root {
-  // height: 100vh;
+
   padding-bottom:100px;
-  // background-color: $black;
   color: $white;
 
   .col-sidenav {
@@ -19,7 +18,6 @@ html, body{
       position:fixed;
       height:100%;
       padding-top:10px;
-      //border-right: 2px solid $dark-grey;
     }
   }
   .container-fluid > .row > .offset-lg-2 {
@@ -78,10 +76,6 @@ html, body{
     background-color: $green !important;
 }
 
-.bg-warning {
-  //background-color: $yellow !important;
-}
-
 .form-control,
 .form-control:focus,
 .form-select {
@@ -101,45 +95,9 @@ html, body{
     background-size: 16px 12px;
 }
 
-.col-sidenav {
+.modal-body {
 
-}
-/*.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  button[type="submit"] {
+    margin-top:20px;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-*/

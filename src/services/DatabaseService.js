@@ -20,7 +20,8 @@ const getBugs = async () => {
 
 const getMyProjects = async () => {
     // TODO: add user state
-    const querySnapshot = await getDocs(query(collection(db, "projects"), where("users", "array-contains", "e8Nv4pJsMKWRVXaIjAnt")));
+    //const querySnapshot = await getDocs(query(collection(db, "projects"), where("users", "array-contains", "e8Nv4pJsMKWRVXaIjAnt")));
+    const querySnapshot = await getDocs(query(collection(db, "projects")));
 
     const projects = [];
     querySnapshot.forEach((doc) => {

@@ -124,14 +124,14 @@ class AddForm extends React.Component {
 		      />
 	     	</Form.Group>
 
-			<Form.Group className="mb-3" controlId="addFormBugAssignTo">
+			{/* <Form.Group className="mb-3" controlId="addFormBugAssignTo">
 					<Form.Label>Assign To</Form.Label>
 				<Form.Select  aria-label="Assign To" name="assignedTo" defaultValue={this.state.assignTo} onChange={this.handleChange} >
 				    <option value="kevin">Kevin</option>
 				    <option value="john">John</option>
 				    <option value="mike">Mike</option>
 				</Form.Select>
-			</Form.Group>
+			</Form.Group> */}
 
 			<Button variant="primary" type="submit" onClick={this.handleSubmit}>
 				Add Bug
