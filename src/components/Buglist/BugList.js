@@ -206,6 +206,12 @@ const BugList = (props) => {
 			{/* Search Bar */}
 			<SearchBar searchValue={searchValue} onChangeSearch={onChangeSearchValue} clearSearch={() => setSearchValue('')} />
 
+			<div className={style.mobileResetFilter}>
+				{
+					filterPriorityActive || filterStatusActive || searchValue ? <Button className={style.resetFilter} size="sm" onClick={() =>resetFilters()}>Reset Filters</Button> : ''
+				}
+			</div>			
+
 			{/* List Filters */}
 			<div className={style.bugListFilters}>
 
@@ -217,7 +223,7 @@ const BugList = (props) => {
 
 					<div>
 						{
-							filterPriorityActive || filterStatusActive || searchValue ? <Button className="resetFilter" size="sm" onClick={() =>resetFilters()}>Reset Filters</Button> : ''
+							filterPriorityActive || filterStatusActive || searchValue ? <Button className={style.resetFilter} size="sm" onClick={() =>resetFilters()}>Reset Filters</Button> : ''
 						}
 					</div>
 				    <div className={style.filterStatus}>  	

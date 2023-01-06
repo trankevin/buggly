@@ -81,6 +81,7 @@
 			text-transform: uppercase;
 			font-size:14px;
 		}
+
 		button.btn {
 			text-transform: uppercase;
 			font-weight: 500;
@@ -108,13 +109,14 @@
 
 		} 
 
-		.resetFilter {
-			color: $red !important;
+	}
 
-			&.btn.btn-primary:hover {
-				background-color: $dark-grey !important;
-			}
+	@media (max-width:768px) {
+
+		.resetFilter {
+			display: none;
 		}
+		
 	}
 
 	.filterStatus {
@@ -154,6 +156,31 @@
 		}
 	}
 	
+}
+
+.resetFilter {
+	text-transform: uppercase;
+	font-weight: 500;
+	padding: 0.35em 0.65em;
+	font-size: 11px;
+	background-color: transparent ;
+	color:white;
+	border-color:transparent;
+	color: $red !important;
+
+	&.btn.btn-primary:hover {
+		background-color: $dark-grey !important;
+	}
+}
+
+.mobileResetFilter {
+	display: flex;
+	justify-content: center;
+	margin-bottom:10px;
+
+	@media (min-width:768px) {
+		display: none;
+	}
 }
 
 .priority {
