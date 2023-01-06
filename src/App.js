@@ -62,7 +62,7 @@ const App = () => {
     }
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/buggly'>
         <ScrollToTop/>
         <ThemeProvider
         breakpoints={['xl','lg', 'md', 'sm', 'xs']}

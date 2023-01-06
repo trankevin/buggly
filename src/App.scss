@@ -25,6 +25,15 @@ html, body{
   }
 }
 
+a {
+  color: $accent;
+
+  &:hover {
+    
+    opacity: 0.8;
+  }
+}
+
 .navbar {
   background-color: $darker-grey;
   margin-bottom: 40px;

@@ -104,12 +104,33 @@ const handleAddProjectForm = async (formData) => {
 
 }
 
+/**
+ * Handle update project submit form
+ * @param  {formData}  Values from Update Project form
+ */
+const handleUpdateProjectFormSubmit = async (projectID, formData) => {
+
+    try {
+        await updateDoc(doc(db, "projects", projectID), {
+            ...formData,
+        });
+        
+        formDispatch(fetchMyProjects());
+        
+    }
+    catch(e) {
+        console.log('Error: ', e);
+    }
+            
+}
+
 
 const FormService = {
     handleAddFormSubmit,
     handleUpdateFormSubmit,
     handleDelete,
-    handleAddProjectForm
+    handleAddProjectForm,
+    handleUpdateProjectFormSubmit
 }
 
 export default FormService;

@@ -34,7 +34,8 @@
 
           &:hover{
             background-color: rgba(114,137,218,0.8);
-            color:white ;
+            color:white !important;
+            opacity: 1;
           }
       }
 
@@ -46,7 +47,8 @@
     }
     a.nav-link:hover{
         background-color: rgba(114,137,218,0.8);
-        color:white ;
+        color:white !important;
+        opacity: 1;
     }
 
     
