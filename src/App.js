@@ -21,11 +21,6 @@ import SideNav from 'components/SideNav/SideNav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import PageTitle from 'components/PageTitle/PageTitle';
 
-// Firestore
-import { collection, query, orderBy, doc, getDocs, addDoc, deleteDoc, updateDoc, where } from "firebase/firestore"; 
-import db from './firebase.js';
-
-
 // State
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBugs } from 'state/bugsSlice'
@@ -47,14 +42,6 @@ const App = () => {
       dispatch(fetchMyProjects());
       
     }, [])
-
-    // useEffect(() => {
-    //   if(projectID){
-    //     console.log(projectID);
-    //     const project = myProjects.filter(project => project.id == projectID)[0];
-    //     setProject(project);
-    //   }
-    // }, [projectID]);
 
     // Update current project in state
     const onChangeProject = (project) => {
