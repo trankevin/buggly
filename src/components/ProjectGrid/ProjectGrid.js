@@ -21,7 +21,7 @@ const ProjectGrid = () => {
     const [updateProject, setUpdateProject] = useState({});
     
 
-    const handlShowUpdateProject = (project) => {
+    const handleShowUpdateProject = (project) => {
         setUpdateProject(project);
         setShow(true);
     };
@@ -52,9 +52,9 @@ const ProjectGrid = () => {
                                 <Card.Body>
                                     {/* <a href={`/project/${project.id}`} className="stretched-link"></a> */}
                                     {/* <Link to={`/project/${project.id}`} className="stretched-link"></Link> */}
-                                    <Card.Title><Link to={`/project/${project.id}`}>{project.projectName}</Link> </Card.Title>
+                                    <Card.Title><Link to={`/projects/${project.id}`}>{project.projectName}</Link> </Card.Title>
                                     <Card.Text>
-                                        <span>{countMap[project.id]} Bugs <BiCog size="22px" onClick={() => handlShowUpdateProject(project)} /></span>
+                                        <span>{countMap[project.id]} {countMap[project.id] == 1 ? "Bug" : "Bugs" }  <BiCog size="22px" onClick={() => handleShowUpdateProject(project)} /></span>
                                         {/* <span>{project.users.length} {project.users.length == 1 ? 'User' : 'Users'}</span> */}
                                     </Card.Text>
                                     

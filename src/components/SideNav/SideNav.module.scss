@@ -55,10 +55,12 @@
 }
 
 .nav {
-    
+  height: 100%;
 
     :global {
-        
+      .container-lg {
+        height:100%;
+      }
       .navbar-nav {
         flex:1;
         .nav-link {
@@ -177,6 +179,10 @@
     
 }
 
-.sidenavFooter {
+.sideNavFooter {
+  padding:20px;
 
+  .logoutLink {
+    text-decoration: none;
+  }
 }

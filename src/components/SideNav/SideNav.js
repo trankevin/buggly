@@ -6,12 +6,13 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Offcanvas } from 'react-bootstrap';
+import { Button, Offcanvas } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import logo from '../../bug-icon.png';
 import style from './SideNav.module.scss'
 import { FaHome, FaFolderOpen } from "react-icons/fa";
 import { Badge } from 'react-bootstrap';
+import UserAuthService from 'services/UserAuthService';
 
 export default function SideNav({ onChangeProject }) {
     
@@ -22,11 +23,16 @@ export default function SideNav({ onChangeProject }) {
     const handleClose = () => setShowMobileNav(false);
     const handleShow = () => setShowMobileNav(true);
 
+    const handleLogout = (e) => {
+        e.preventDefault();
+        UserAuthService.logout();
+    }
+
     return(
         <>
             <Navbar bg="transparent" variant="dark" expand="lg" className={`${style.nav} mb-1`}>
                 <Container fluid="lg">
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} onClick={handleShow}/>
+                    {/* <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} onClick={handleShow}/> */}
                     <Navbar.Brand className='brand'>
                         <a href="/">
                         <img
@@ -66,8 +72,8 @@ export default function SideNav({ onChangeProject }) {
                         {myProjects.map((project) => {
                             return (
                                 <Nav.Link key={project.id} 
-                                    eventKey={`/project/${project.id}`}
-                                    as={Link} to={`/project/${project.id}`}
+                                    eventKey={`/projects/${project.id}`}
+                                    as={Link} to={`/projects/${project.id}`}
                                     data-project-id={project.id} 
                                     onClick={handleClose}
                                     className="projectMenuLink">
@@ -79,7 +85,9 @@ export default function SideNav({ onChangeProject }) {
                     </Nav>
                     </Offcanvas.Body>
                     </Navbar.Offcanvas>
-                    <div></div>
+                    <div class={style.sideNavFooter}>
+                        <a href="#" class={style.logoutLink} onClick={handleLogout}>Logout</a>
+                    </div>
                 </Container>
             </Navbar>
 

@@ -27,14 +27,20 @@ import { fetchBugs } from 'state/bugsSlice'
 import { fetchMyProjects } from 'state/myProjectsSlice'
 import ProjectsPage from 'pages/ProjectsPage';
 import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
+import LoginPage from 'pages/LoginPage';
+import UserAuthService from 'services/UserAuthService';
 
 const App = () => {
     
     const dispatch = useDispatch();
     const myProjects = useSelector(state => state.myProjects);
     const [project, setProject] = useState({});
+
+    const userAuth = useSelector(state => state.userAuth);
    
     useEffect(() => {
+      UserAuthService.checkUserAuth();
+
       // Fetch bugs from Firestore
       dispatch(fetchBugs());
 
@@ -55,26 +61,34 @@ const App = () => {
         breakpoints={['xl','lg', 'md', 'sm', 'xs']}
         >
             <Container fluid>
-                <Row>
-                  <Col xs={12} lg={2} className="col-sidenav">
+                <Row className={userAuth.isLoggedIn ? 'isLoggedIn' : 'isLoggedOut justify-content-center'}>
+                  
+                  {userAuth.isLoggedIn && 
+                    <Col xs={12} lg={2} className="col-sidenav">
                       <SideNav onChangeProject={(project) => onChangeProject(project)}/>
-                  </Col>
-                  <Col xs={12} lg={{span: 10, offset: 2 }}>
+                    </Col>}
+                  
+                  <Col xs={12} 
+                      sm={userAuth.isLoggedIn ? {span: 10, offset: 2 } : 8} 
+                      lg={userAuth.isLoggedIn ? {span: 10, offset: 2 } : 5}
+                  >
                         <main>
                             <Container fluid="lg">
                               <Routes>
-
+                                
                                 <Route path="/" element={
-                                  <>
-                                    <PageTitle title="Dashboard"/>
-                                    <Summary/>
-                                    <AddModal type="bug" title="Add New Bug" />
-                                    <BugList />                                  
-                                  </>
+                                  !userAuth.isLoggedIn ? 
+                                      <LoginPage /> :
+                                      <>
+                                        <PageTitle title="Dashboard"/>
+                                        <Summary/>
+                                        <AddModal type="bug" title="Add New Bug" />
+                                        <BugList />  
+                                      </>                              
                                 } />
                               
-                                <Route exact path="/projects" element={<ProjectsPage />} />
-                                <Route path="/project/:projectID" element={
+                                <Route path="/projects" element={<ProjectsPage />} />
+                                <Route path="/projects/:projectID" element={
                                   <>
                                     <PageTitle />
                                     <Summary />
@@ -83,7 +97,7 @@ const App = () => {
                                   </>
                                 } />
 
-                                <Route exact path='*' element={<h1>Page Not found!</h1>} />
+                                <Route path='*' element={<h1>Page Not found!</h1>} />
                               </Routes>
                               
                             </Container>
