@@ -53,7 +53,7 @@ class UpdateForm extends React.Component {
 
   render() {
   	return(
-  		<Form id="bugUpdateForm" className="mb-3">
+  		<Form id="bugUpdateForm" className="mb-3"  onSubmit={this.handleSubmit}>
 
 			<Form.Group className="mb-3" controlId="addFormBugName">
 				<Form.Label>Bug Title</Form.Label>
@@ -132,7 +132,7 @@ class UpdateForm extends React.Component {
 				</Form.Select>
 			</Form.Group> */}
 
-			<Button variant="primary" type="submit" onClick={this.handleSubmit}>
+			<Button variant="primary" type="submit">
 				Update Bug
 			</Button>
 	    </Form>

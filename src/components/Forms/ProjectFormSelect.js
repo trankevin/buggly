@@ -8,7 +8,7 @@ export default function ProjectFormSelect({ handleChange, defaultProject = '' })
     const projects = useSelector(state => state.myProjects);
 
     return(
-        <Form.Select  aria-label="Project Select" name="projectID" value={defaultProject} onChange={handleChange} >
+        <Form.Select  aria-label="Project Select" name="projectID" value={defaultProject} onChange={handleChange} required>
              <option value="">Select Project</option>
             
             {projects.map((project) => {

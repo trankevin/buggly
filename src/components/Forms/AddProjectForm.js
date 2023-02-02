@@ -34,14 +34,14 @@ const AddProjectForm = ({ handleClose }) => {
     }
 
     return (
-        <Form id="AddProjectForm" className="mb-3">
+        <Form id="AddProjectForm" className="mb-3" onSubmit={handleSubmit}>
 
             <Form.Group className="mb-3" controlId="addProjectFormName">
 				<Form.Label>Project Name</Form.Label>
-				<Form.Control type="text" name="projectName" value={formState.projectName} onChange={handleChange} />
+				<Form.Control type="text" name="projectName" value={formState.projectName} onChange={handleChange} required/>
 			</Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="primary" type="submit" >
 				Add Project
 			</Button>
             

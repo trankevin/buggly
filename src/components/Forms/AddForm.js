@@ -57,11 +57,11 @@ class AddForm extends React.Component {
 
   render() {
   	return(
-  		<Form id="bugAddForm" className="mb-3">
+  		<Form id="bugAddForm" className="mb-3" onSubmit={this.handleSubmit}>
 
 			<Form.Group className="mb-3" controlId="addFormBugName">
 				<Form.Label>Bug Title</Form.Label>
-				<Form.Control type="text" name="bugTitle" value={this.state.bugTitle} onChange={this.handleChange} />
+				<Form.Control type="text" name="bugTitle" value={this.state.bugTitle} onChange={this.handleChange} required/>
 			</Form.Group>
 
 			<Form.Group className="mb-3" controlId="addFormBugDescription">
@@ -133,7 +133,7 @@ class AddForm extends React.Component {
 				</Form.Select>
 			</Form.Group> */}
 
-			<Button variant="primary" type="submit" onClick={this.handleSubmit}>
+			<Button variant="primary" type="submit" >
 				Add Bug
 			</Button>
 	    </Form>
