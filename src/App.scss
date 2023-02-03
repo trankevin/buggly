@@ -123,3 +123,8 @@ input:-webkit-autofill:active {
     margin-top:20px;
   }
 }
+
+p.error {
+  color: $red;
+  font-size:14px;
+}

@@ -1,4 +1,3 @@
-// Firestore
 import { collection, query, orderBy, doc, getDoc, getDocs, addDoc, setDoc, deleteDoc, updateDoc, where } from "firebase/firestore"; 
 import db from '../firebase.js';
 import { Timestamp } from "firebase/firestore";
@@ -124,6 +123,7 @@ const signUpUser = async (formData) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+        throw Error(error);
     }
     
 }

@@ -27,7 +27,13 @@ const SignUpForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await UserAuthService.signUpUser({dateCreated: Timestamp.now(), ...formState});
+        setFormStatus('');
+        try {
+            await UserAuthService.signUpUser({dateCreated: Timestamp.now(), ...formState});
+        } catch (error) {
+            setFormStatus('Error');
+        }
+        
     }
 
     return (
@@ -58,7 +64,7 @@ const SignUpForm = () => {
 			</Button>
 
             {formStatus == 'Error' && 
-                <p>There was an issue signing you up, please try again.</p>
+                <p class="error">There was an issue signing you up, please try again.</p>
             }
             
         </Form>

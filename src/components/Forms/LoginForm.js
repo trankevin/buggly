@@ -24,13 +24,15 @@ const LoginForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setFormStatus('');
+        
         try {
             await UserAuthService.login(formState.email, formState.password);
             setFormState({
                 email: '',
                 password: ''
             });
-            setFormStatus('');
+            
         } catch (error) {
             // Error logging in
             setFormStatus('Error');
@@ -55,7 +57,7 @@ const LoginForm = () => {
 			</Button>
 
             {formStatus == 'Error' && 
-                <p>There was an issue logging in, please check your username and password.</p>
+                <p class="error">There was an issue logging in, please check your username and password.</p>
             }
             
         </Form>

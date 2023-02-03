@@ -167,7 +167,7 @@ const BugList = (props) => {
 					<td className={`${style.priority} ${row.priority}`}>{row.priority}</td>
 					<td className={style.bugTitle}>
 						<p className={style.titleText}>{row.bugTitle}</p>
-						<p><Badge className={style.projectBadge}><FaFolderOpen/> {projectsMap[row.projectID] ? projectsMap[row.projectID].projectName : ''}</Badge> 
+						<p><Badge className={style.projectBadge}><FaFolderOpen/> {projectsMap[row.projectID] ? projectsMap[row.projectID].projectName : 'Unassigned'}</Badge> 
 						{/* <Badge bg={displayStatus(row.status, 'badgeClass')}>{displayStatus(row.status, 'text')}</Badge>*/}
 						</p> 
 					</td>

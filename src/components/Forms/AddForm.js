@@ -41,7 +41,7 @@ class AddForm extends React.Component {
 	try {
 		// Check if adding first project, then create project first
 		if(projectName) {
-			const projectID = await FormService.handleAddProjectForm({projectName: projectName});
+			const projectID = await FormService.handleAddProjectForm({projectName: projectName, dateCreated: Timestamp.now()});
 			formState.projectID = projectID;
 		}
 
