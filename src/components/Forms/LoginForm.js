@@ -52,13 +52,15 @@ const LoginForm = () => {
 				<Form.Control type="password" name="password" value={formState.password} onChange={handleChange} autoComplete="current-password" required/>
 			</Form.Group>
 
+            {formStatus == 'Error' && 
+                <p class="error">There was an issue logging in, please check your username and password.</p>
+            }
+
             <Button variant="primary" type="submit" >
 				Login
 			</Button>
 
-            {formStatus == 'Error' && 
-                <p class="error">There was an issue logging in, please check your username and password.</p>
-            }
+            
             
         </Form>
     );

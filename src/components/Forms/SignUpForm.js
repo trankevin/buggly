@@ -59,13 +59,15 @@ const SignUpForm = () => {
 				<Form.Control type="password" name="password" value={formState.password} onChange={handleChange} autoComplete="off" required/>
 			</Form.Group>
 
+            {formStatus == 'Error' && 
+                <p class="error">There was an issue signing you up, please try again.</p>
+            }
+            
             <Button variant="primary" type="submit">
 				Sign Up
 			</Button>
 
-            {formStatus == 'Error' && 
-                <p class="error">There was an issue signing you up, please try again.</p>
-            }
+            
             
         </Form>
     );
