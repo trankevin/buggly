@@ -13,7 +13,7 @@ class AddForm extends React.Component {
     	status: 'open',
     	bugTitle: '',
     	description:'',
-    	assignedTo: 'kevin',
+    	//assignedTo: 'kevin',
     	priority: 'Medium',
 		projectID: this.props.projectID || ''
 
@@ -33,25 +33,35 @@ class AddForm extends React.Component {
 
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
-    // Call parent submitHandler function sent through props
-    //this.props.submitHandler({dateAdded: Timestamp.now(), ...this.state});
-	const data = {dateAdded: Timestamp.now(), ...this.state};
-	
-	FormService.handleAddFormSubmit(data).then(() => {
+	const {projectName = '', ...formState} = this.state;
+    
+	try {
+		// Check if adding first project, then create project first
+		if(projectName) {
+			const projectID = await FormService.handleAddProjectForm({projectName: projectName});
+			formState.projectID = projectID;
+		}
+
+		const data = {dateAdded: Timestamp.now(), ...formState};
 		
+		await FormService.handleAddFormSubmit(data);
+
 		// Reset form state
 		this.setState({
 			status: 'open',
 			bugTitle: '',
-			assignedTo: 'kevin'
+			priority: 'Medium',
+			//assignedTo: 'kevin'
 		});
 
 		this.props.handleClose();
-
-	});
+	} catch (error) {
+		console.log(error.message);
+	}
+	
     
   }
 

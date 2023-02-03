@@ -11,7 +11,7 @@ const LoginForm = () => {
         password: ''
     });
 
-    //const [formStatus, setFormStatus] = useState();
+    const [formStatus, setFormStatus] = useState('');
 
     const handleChange = (event) => {
         let name = event.target.name;
@@ -22,27 +22,41 @@ const LoginForm = () => {
         });        
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        UserAuthService.login(formState.email, formState.password);
+        try {
+            await UserAuthService.login(formState.email, formState.password);
+            setFormState({
+                email: '',
+                password: ''
+            });
+            setFormStatus('');
+        } catch (error) {
+            // Error logging in
+            setFormStatus('Error');
+        }
+        
     }
-
     return (
-        <Form id="LoginForm" className="mb-3">
+        <Form id="LoginForm" className="mb-3" onSubmit={handleSubmit}>
 
             <Form.Group className="mb-3" controlId="LoginFormEmail">
 				<Form.Label>Email</Form.Label>
-				<Form.Control type="email" name="email" value={formState.email} onChange={handleChange} autoComplete="username" />
+				<Form.Control type="email" name="email" value={formState.email} onChange={handleChange} autoComplete="username" required/>
 			</Form.Group>
 
             <Form.Group className="mb-3" controlId="LoginFormPassword">
 				<Form.Label>Password</Form.Label>
-				<Form.Control type="password" name="password" value={formState.password} onChange={handleChange} autoComplete="current-password" />
+				<Form.Control type="password" name="password" value={formState.password} onChange={handleChange} autoComplete="current-password" required/>
 			</Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="primary" type="submit" >
 				Login
 			</Button>
+
+            {formStatus == 'Error' && 
+                <p>There was an issue logging in, please check your username and password.</p>
+            }
             
         </Form>
     );

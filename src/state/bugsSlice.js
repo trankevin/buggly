@@ -34,9 +34,9 @@ export const bugsSlice = createSlice({
       })
     }
 })
-export const fetchBugs = createAsyncThunk('bugs/fetchBugs', async () => {
+export const fetchBugs = createAsyncThunk('bugs/fetchBugs', async (uid) => {
     try {
-        const bugs = await DatabaseService.getBugs();
+        const bugs = await DatabaseService.getBugs(uid);
         return bugs;
     } catch (error) {
         console.log(error);

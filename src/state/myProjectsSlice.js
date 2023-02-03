@@ -15,9 +15,9 @@ export const myProjectsSlice = createSlice({
       })
     }
 })
-export const fetchMyProjects = createAsyncThunk('bugs/fetchMyProjects', async () => {
+export const fetchMyProjects = createAsyncThunk('myProjects/fetchMyProjects', async (uid) => {
     try {
-        const projects = await DatabaseService.getMyProjects();
+        const projects = await DatabaseService.getMyProjects(uid);
         return projects;
     } catch (error) {
         

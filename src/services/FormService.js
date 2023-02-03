@@ -16,9 +16,11 @@ const formDispatch = (action) => {
  * @param  {formData}  Values from Add Bug form
  */
 const handleAddFormSubmit = async (formData) => {
+    const state = store.getState();
 
     let nextBug =  {
-      ...formData
+      ...formData,
+      createdBy: state.userAuth.user.uid
     }
 
     try {
@@ -83,19 +85,21 @@ const handleDelete = async (bugId) => {
  * @param  {formData}  Form data from add project
  */
 const handleAddProjectForm = async (formData) => {
-
+    const state = store.getState();
+    
     let project =  {
-      ...formData
+      ...formData,
+      users: [state.userAuth.user.uid]
     }
 
     try {
       const docRef = await addDoc(collection(db, "projects"), project);
 
       if (docRef.id !== undefined) {
-       //nextBug.id = docRef.id;
 
         // Fetch projects
-        formDispatch(fetchMyProjects());        
+        formDispatch(fetchMyProjects(state.userAuth.user.uid));
+        return docRef.id;        
       }
     }
     catch(error) {

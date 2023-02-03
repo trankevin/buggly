@@ -7,11 +7,23 @@
       background-color:$dark-grey;
       width:300px;
       padding:0.5em;
-
+      color: #fff;
       .offcanvas-title {
         color: $accent;
         margin-left:0.5em;
       }
+
+      .btn-close {
+        background: transparent url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z%27/%3e%3c/svg%3e') center/1em auto no-repeat ;
+      }
+    }
+
+    .offcanvas-body{
+      justify-content: space-between;
+     display: flex;
+      height:100%;
+      flex-direction: column;  
+     
     }
 
     .navbar-nav, nav .navbar-nav {
@@ -91,9 +103,6 @@
           color:white ;
       }
 
-      .offcanvas-body{
-        justify-content: end;
-      }
 
       .brand {
         color: #7289da;
@@ -170,17 +179,22 @@
         font-size:14px;
     }
     
-    @media (min-width:992px) {
-
-      
-      
-        
-    }
     
 }
 
 .sideNavFooter {
-  padding:20px;
+  // padding:20px;
+  text-align: center;
+
+  .userName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      margin-right:10px;
+    }
+  }
 
   .logoutLink {
     text-decoration: none;

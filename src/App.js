@@ -29,6 +29,9 @@ import ProjectsPage from 'pages/ProjectsPage';
 import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 import LoginPage from 'pages/LoginPage';
 import UserAuthService from 'services/UserAuthService';
+import { loginSuccess, logoutSuccess, loggingIn } from "state/userAuthSlice.js";
+import DashboardPage from 'pages/DashboardPage';
+import ProtectedRoute from 'pages/ProtectedRoute';
 
 const App = () => {
     
@@ -39,13 +42,8 @@ const App = () => {
     const userAuth = useSelector(state => state.userAuth);
    
     useEffect(() => {
-      UserAuthService.checkUserAuth();
-
-      // Fetch bugs from Firestore
-      dispatch(fetchBugs());
-
-      // Fetch user projects
-      dispatch(fetchMyProjects());
+      // Check for returning user
+      UserAuthService.initUserAuth();
       
     }, [])
 
@@ -69,7 +67,7 @@ const App = () => {
                     </Col>}
                   
                   <Col xs={12} 
-                      sm={userAuth.isLoggedIn ? {span: 10, offset: 2 } : 8} 
+                      sm={userAuth.isLoggedIn ? 12 : 8} 
                       lg={userAuth.isLoggedIn ? {span: 10, offset: 2 } : 5}
                   >
                         <main>
@@ -77,24 +75,28 @@ const App = () => {
                               <Routes>
                                 
                                 <Route path="/" element={
-                                  !userAuth.isLoggedIn ? 
-                                      <LoginPage /> :
-                                      <>
-                                        <PageTitle title="Dashboard"/>
-                                        <Summary/>
-                                        <AddModal type="bug" title="Add New Bug" />
-                                        <BugList />  
-                                      </>                              
+                                  <ProtectedRoute>
+                                    <DashboardPage />         
+                                  </ProtectedRoute>
+                                  // !userAuth.isLoggedIn ? 
+                                  //     <LoginPage /> :
+                                  //     // <>
+                                  //     //   <PageTitle title="Dashboard"/>
+                                  //     //   <Summary/>
+                                  //     //   <AddModal type="bug" title="Add New Bug" />
+                                  //     //   <BugList />  
+                                  //     // </>       
+                                  //     <DashboardPage />                   
                                 } />
                               
-                                <Route path="/projects" element={<ProjectsPage />} />
+                                <Route path="/projects" element={<ProtectedRoute><ProjectsPage /></ProtectedRoute>} />
                                 <Route path="/projects/:projectID" element={
-                                  <>
+                                  <ProtectedRoute>
                                     <PageTitle />
                                     <Summary />
                                     <AddModal type="bug" title="Add New Bug" />
                                     <BugList/>                                  
-                                  </>
+                                  </ProtectedRoute>
                                 } />
 
                                 <Route path='*' element={<h1>Page Not found!</h1>} />

@@ -10,29 +10,34 @@ import { Button, Offcanvas } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import logo from '../../bug-icon.png';
 import style from './SideNav.module.scss'
-import { FaHome, FaFolderOpen } from "react-icons/fa";
+import { FaHome, FaFolderOpen, FaUserAlt } from "react-icons/fa";
 import { Badge } from 'react-bootstrap';
 import UserAuthService from 'services/UserAuthService';
+import { useNavigate } from "react-router-dom";
+import userAuthSlice from 'state/userAuthSlice';
 
 export default function SideNav({ onChangeProject }) {
     
     const myProjects = useSelector(state => state.myProjects);
     const { pathname } = useLocation();
     const [showMobileNav, setShowMobileNav] = useState(false);
+    const userAuth = useSelector(state => state.userAuth);
 
     const handleClose = () => setShowMobileNav(false);
     const handleShow = () => setShowMobileNav(true);
+    const navigate = useNavigate();
 
     const handleLogout = (e) => {
         e.preventDefault();
         UserAuthService.logout();
+        navigate('/');
     }
 
     return(
         <>
             <Navbar bg="transparent" variant="dark" expand="lg" className={`${style.nav} mb-1`}>
                 <Container fluid="lg">
-                    {/* <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} onClick={handleShow}/> */}
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} onClick={handleShow}/>
                     <Navbar.Brand className='brand'>
                         <a href="/">
                         <img
@@ -49,7 +54,7 @@ export default function SideNav({ onChangeProject }) {
                     id={`offcanvasNavbar-expand-lg`}
                     aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
                     placement="start"
-                    show={showMobileNav}
+                    // show={showMobileNav}
                     onHide={handleClose}
                     >
                     <Offcanvas.Header closeButton>
@@ -83,11 +88,13 @@ export default function SideNav({ onChangeProject }) {
                             );
                         })}
                     </Nav>
+                    <div className={style.sideNavFooter}>
+                        { userAuth.user && <p className={style.userName}><FaUserAlt/> {userAuth.user.firstName} {userAuth.user.lastName}</p>}
+                        <a href="#" className={style.logoutLink} onClick={handleLogout}>Logout</a>
+                    </div>
                     </Offcanvas.Body>
                     </Navbar.Offcanvas>
-                    <div class={style.sideNavFooter}>
-                        <a href="#" class={style.logoutLink} onClick={handleLogout}>Logout</a>
-                    </div>
+                    <div></div>
                 </Container>
             </Navbar>
 

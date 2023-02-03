@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -22,7 +23,7 @@ const AddProjectForm = ({ handleClose }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        FormService.handleAddProjectForm(formState).then(() => {
+        FormService.handleAddProjectForm({dateCreated: Timestamp.now(), ...formState}).then(() => {
             
             // Reset Form State
             setFormState({
