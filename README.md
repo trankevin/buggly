@@ -22,9 +22,5 @@ A bug tracking project built with React
 
 ## Demo
 
-Login <br/>
-u: buggly <br/>
-p: bugglydemopassword1 <br/>
-
 <a href="https://trankevin.com/buggly/" target="_blank">https://trankevin.com/buggly/</a>
 
